@@ -14,7 +14,7 @@ GMAIL_USER   = os.getenv("GMAIL_USER")
 GMAIL_PASS   = os.getenv("GMAIL_PASS")
 GRADES_FILE  ="last_grades.json"
 UNI_EMAIL = os.getenv("UNI_EMAIL")
-EMP_ID = os.getenv("UNI_EMAIL")
+EMP_ID = os.getenv("EMP_ID")
 BASE_URL = "https://zambeel.lums.edu.pk"
 
 def login():
