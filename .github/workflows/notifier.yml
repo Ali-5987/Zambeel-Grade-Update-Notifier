@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4 python-dotenv schedule
       - name: Debug secrets
+        env:
+          ZAMBEEL_USER: ${{ secrets.ZAMBEEL_USER }}
+          ZAMBEEL_PASS: ${{ secrets.ZAMBEEL_PASS }}
         run: |
           echo "User length: ${#ZAMBEEL_USER}"
           echo "Pass length: ${#ZAMBEEL_PASS}"
