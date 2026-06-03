@@ -42,6 +42,9 @@ def login():
         allow_redirects=True
     )
     
+    print(f"Login POST status: {resp.status_code}")
+    print(f"Login POST final URL: {resp.url}")
+    print(f"Login POST body snippet: {resp.text[:800]}")
     if "PS_TOKEN" in session.cookies or "PS_LOGINLIST" in session.cookies:
         print("Login successful")
         return session
