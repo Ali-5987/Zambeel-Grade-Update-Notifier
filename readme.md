@@ -58,18 +58,20 @@ The default configuration is optimized for university operating hours to conserv
 ## 💻 Local Development
 
 To run the agent in a local environment for debugging:
-
 1. **Clone the repository:**
-  ```bash
-   git clone [https://github.com/your-username/Zambeel-Grade-Update-Notifier.git](https://github.com/your-username/Zambeel-Grade-Update-Notifier.git) ''
+```bash
+   git clone https://github.com/your-username/Zambeel-Grade-Update-Notifier.git
+```
 
 2. **Setup Virtual Environment:**
- ```bash
-python -m venv venv
-source venv/bin/activate  # Or `venv\Scripts\activate` on Windows
-pip install -r requirements.txt ``
+```bash
+   python -m venv venv
+   source venv/bin/activate  # Or `venv\Scripts\activate` on Windows
+   pip install -r requirements.txt
+```
 
-3. Environmental Variables:
-Create a .env file in the root directory (this is automatically ignored by .gitignore).
-⚖️ License
+3. **Environmental Variables:**
+   Create a `.env` file in the root directory (this is automatically ignored by `.gitignore`).
+
+## ⚖️ License
 This project is licensed under the MIT License - see the LICENSE file for details.
