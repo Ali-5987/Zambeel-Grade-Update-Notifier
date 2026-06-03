@@ -41,11 +41,11 @@ def login():
         allow_redirects=True
     )
     
-    if "Sign out" in resp.text or ZAMBEEL_USER in resp.text:
+    if "PS_TOKEN" in session.cookies or "PS_LOGINLIST" in session.cookies:
         print("Login successful")
         return session
     else:
-        print("Login failed — check credentials")
+        print("Login failed — cookies:", dict(session.cookies))
         return None
 
 # def get_term_selection_state(session):
