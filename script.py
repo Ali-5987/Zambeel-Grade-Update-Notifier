@@ -186,10 +186,10 @@ def check_grades():
     with open(GRADES_FILE, "w") as f:
         json.dump(current, f, indent=2)
 
-# Run every 30 minutes
-schedule.every(30).minutes.do(check_grades)
+# scheduling is now done through github actions
+# schedule.every(30).minutes.do(check_grades)
 check_grades()  # Run immediately on start
 
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(60)

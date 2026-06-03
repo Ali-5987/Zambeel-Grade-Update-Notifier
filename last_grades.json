@@ -1,0 +1,26 @@
+{
+  "CS 300": {
+    "grade": "",
+    "description": "Advanced Programming"
+  },
+  "CS 320": {
+    "grade": "",
+    "description": "Computer Organization and A.L"
+  },
+  "CS 360": {
+    "grade": "",
+    "description": "Software Engineering"
+  },
+  "CS 437": {
+    "grade": "",
+    "description": "Deep Learning"
+  },
+  "CS 497B": {
+    "grade": "",
+    "description": "Directed Research Project"
+  },
+  "POL 100": {
+    "grade": "",
+    "description": "Introduction to Political Sci"
+  }
+}
