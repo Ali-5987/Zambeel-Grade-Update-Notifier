@@ -28,12 +28,13 @@ def login():
     })
 
     login_page = session.get(f"{BASE_URL}/psp/ps/?cmd=login")
-    
+    csrf_token = session.cookies.get("lcsrftoken", "")
     # Submit login
     login_data = {
         "userid": ZAMBEEL_USER,
         "pwd":    ZAMBEEL_PASS,
-        "Submit": "Sign In"
+        "Submit": "Sign In",
+        "lcsrftoken": csrf_token,
     }
     resp = session.post(
         f"{BASE_URL}/psp/ps/?cmd=login",
