@@ -52,40 +52,40 @@ def login():
         print("Login failed — cookies:", dict(session.cookies))
         return None
 
-# def get_term_selection_state(session):
-#     """Load the term selection page and extract ICStateNum and ICSID"""
-#     resp = session.get(
-#         f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL"
-#     )
-#     soup = BeautifulSoup(resp.text, "html.parser")
-    
-#     state_num = soup.find("input", {"id": "ICStateNum"})["value"]
-#     icsid      = soup.find("input", {"id": "ICSID"})["value"]
-    
-#     return state_num, icsid
-
 def get_term_selection_state(session):
+    """Load the term selection page and extract ICStateNum and ICSID"""
     resp = session.get(
-        f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL",
-        allow_redirects=True
+        f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL"
     )
-    
-    # Debug — add this temporarily to see what page you're actually getting
-    print(f"Status code: {resp.status_code}")
-    print(f"Final URL: {resp.url}")
-    print(f"Response snippet: {resp.text[:500]}")
-    
     soup = BeautifulSoup(resp.text, "html.parser")
     
-    state_input = soup.find("input", {"id": "ICStateNum"})
-    icsid_input  = soup.find("input", {"id": "ICSID"})
+    state_num = soup.find("input", {"id": "ICStateNum"})["value"]
+    icsid      = soup.find("input", {"id": "ICSID"})["value"]
     
-    if not state_input or not icsid_input:
-        print("ERROR: Could not find ICStateNum or ICSID in page response")
-        print("Page title:", soup.title.string if soup.title else "No title")
-        raise ValueError("Session did not land on grades page — check login flow")
+    return state_num, icsid
+
+# def get_term_selection_state(session):
+#     resp = session.get(
+#         f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL",
+#         allow_redirects=True
+#     )
     
-    return state_input["value"], icsid_input["value"]
+#     # Debug — add this temporarily to see what page you're actually getting
+#     print(f"Status code: {resp.status_code}")
+#     print(f"Final URL: {resp.url}")
+#     print(f"Response snippet: {resp.text[:500]}")
+    
+#     soup = BeautifulSoup(resp.text, "html.parser")
+    
+#     state_input = soup.find("input", {"id": "ICStateNum"})
+#     icsid_input  = soup.find("input", {"id": "ICSID"})
+    
+#     if not state_input or not icsid_input:
+#         print("ERROR: Could not find ICStateNum or ICSID in page response")
+#         print("Page title:", soup.title.string if soup.title else "No title")
+#         raise ValueError("Session did not land on grades page — check login flow")
+    
+#     return state_input["value"], icsid_input["value"]
 
 
 def fetch_grades_xml(session, state_num, icsid, strm="2502"):
