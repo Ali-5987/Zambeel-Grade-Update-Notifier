@@ -14,7 +14,7 @@ GMAIL_USER   = os.getenv("GMAIL_USER")
 GMAIL_PASS   = os.getenv("GMAIL_PASS")
 GRADES_FILE  ="last_grades.json"
 UNI_EMAIL = os.getenv("UNI_EMAIL")
-EMP_ID = 30339
+EMP_ID = os.getenv("UNI_EMAIL")
 BASE_URL = "https://zambeel.lums.edu.pk"
 
 def login():
@@ -48,17 +48,41 @@ def login():
         print("Login failed — check credentials")
         return None
 
+# def get_term_selection_state(session):
+#     """Load the term selection page and extract ICStateNum and ICSID"""
+#     resp = session.get(
+#         f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL"
+#     )
+#     soup = BeautifulSoup(resp.text, "html.parser")
+    
+#     state_num = soup.find("input", {"id": "ICStateNum"})["value"]
+#     icsid      = soup.find("input", {"id": "ICSID"})["value"]
+    
+#     return state_num, icsid
+
 def get_term_selection_state(session):
-    """Load the term selection page and extract ICStateNum and ICSID"""
     resp = session.get(
-        f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL"
+        f"{BASE_URL}/psc/ps/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_GRADE.GBL",
+        allow_redirects=True
     )
+    
+    # Debug — add this temporarily to see what page you're actually getting
+    print(f"Status code: {resp.status_code}")
+    print(f"Final URL: {resp.url}")
+    print(f"Response snippet: {resp.text[:500]}")
+    
     soup = BeautifulSoup(resp.text, "html.parser")
     
-    state_num = soup.find("input", {"id": "ICStateNum"})["value"]
-    icsid      = soup.find("input", {"id": "ICSID"})["value"]
+    state_input = soup.find("input", {"id": "ICStateNum"})
+    icsid_input  = soup.find("input", {"id": "ICSID"})
     
-    return state_num, icsid
+    if not state_input or not icsid_input:
+        print("ERROR: Could not find ICStateNum or ICSID in page response")
+        print("Page title:", soup.title.string if soup.title else "No title")
+        raise ValueError("Session did not land on grades page — check login flow")
+    
+    return state_input["value"], icsid_input["value"]
+
 
 def fetch_grades_xml(session, state_num, icsid, strm="2502"):
     """POST to grades component and get XML response, change strm according to the session required"""
